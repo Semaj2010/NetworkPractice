@@ -58,13 +58,13 @@ int main(int argc, char *argv[]){
 	totalBytesRcvd = 0;
 	printf("Received: ");        /*Setup to print the echoed string*/
 
-	while (totalBytesRcvd < echoStringLen) {
+	while (totalBytesRcvd < (int)echoStringLen) {
 		/*Receive up to the buffer size (minus 1 to leave space for a null terminator) bytes from the sender*/
 		if ((bytesRcvd =recv(sock, echoBuffer, RCVBUFSIZE - 1, 0)) <= 0)
 			DieWithError("recv() failed or connection closed prematurely");
 		totalBytesRcvd += bytesRcvd;
-		echoBuffer[bytesRcvd] = '\0'; /*Terminate the string!*/
-		printf(echoBuffer);
+		echoBuffer[bytesRcvd] = '\0'; /*Terminate the rest string!*/
+		printf("%s",echoBuffer);
 	}
 	printf("\n"); /*Print a final linefeed*/
 	close(sock);
