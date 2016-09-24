@@ -6,7 +6,7 @@
 #include <string.h>	/*for memset()*/
 #include <unistd.h>	/*for close() */
 
-define MAXPENDING 5    /*Maximum outstanding connection requests*/
+#define MAXPENDING 5    /*Maximum outstanding connection requests*/
 
 void DieWithError(char *errormessage); /*Error handling function*/
 void HandleTCPClient(int cIntSocket);  /*TCP client handling function*/
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]){
 		cIntLen = sizeof(echoCIntAddr);
 
 		/*Wait for a client to connect*/
-		if((CIntSock = accept(servSock, (struct sockaddr *) &echoCIntAddr, &cIntLen)) < 0)
+		if((cIntSock = accept(servSock, (struct sockaddr *) &echoCIntAddr, &cIntLen)) < 0)
 			DieWithError("accept() failed");
 		/*cIntSock is connected to a client!*/
 		
