@@ -29,7 +29,7 @@ int main(int argc, char *argv[]){
 
 	printf("Server IP:");
 	scanf("%s", servIP);
-	printf("\nServer Port:");
+	printf("Server Port:");
 	scanf("%hd", &echoServPort);
 
 	/*Construct the server address structure*/
@@ -41,6 +41,7 @@ int main(int argc, char *argv[]){
 	/*Establish the connection to the echo server*/
 	if(connect(sock, (struct sockaddr *)&echoServAddr, sizeof(echoServAddr)) < 0)
 		DieWithError("connect failed");
+	printf("Server IP : %s Port:%hd\n",inet_ntoa(echoServAddr.sin_addr),ntohs(echoServAddr.sin_port));
 	/*communicate with a server*/
 	for(;;){
 		scanf("%s", echoString);
@@ -52,7 +53,7 @@ int main(int argc, char *argv[]){
 		}
 
 		echoStringLen = strlen(echoString);    /*Determine input length*/
-		printf("Len:%d, string:%s\n",echoStringLen,echoString);
+		printf("msg->%s\n",echoString);
 
 		/*Send the string to the server*/
 		if (send(sock, echoString, echoStringLen, 0) != echoStringLen)
@@ -61,7 +62,7 @@ int main(int argc, char *argv[]){
 
 		/*Receive the same string back from the server*/
 		totalBytesRcvd = 0;
-		printf("Received: ");        /*Setup to print the echoed string*/
+		printf("msg<-");        /*Setup to print the echoed string*/
 
 		bytesRcvd = 1;
 		do {

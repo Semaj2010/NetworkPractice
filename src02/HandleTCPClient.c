@@ -23,8 +23,8 @@ void HandleTCPClient(int cIntSocket) {
 
 		echoBuffer[recvMsgSize] = '\0';
 
-		printf("%s",echoBuffer);    //print also to Serverside
-		printf("\n");
+		printf("msg<-%s\n",echoBuffer);    //print also to Serverside
+		printf("msg->");
 
 		/*print to file*/
 		fpForLog = fopen(fileName,"a");
@@ -34,7 +34,9 @@ void HandleTCPClient(int cIntSocket) {
 		if(connectAllowFlag == 0){
 			/*string compare for allow to connect. need hello*/	
 			if(strncmp(echoBuffer, "hello",5)==0){
-				send(cIntSocket,"Hi!\n",4,0);
+				printf("Hi!\n");
+				if(send(cIntSocket,"Hi!",4,0) <0)
+					DieWithError("send() failed");
 				connectAllowFlag = 1;	
 			}else{
 				write(cIntSocket, refuseMessage, strlen(refuseMessage));
@@ -42,6 +44,7 @@ void HandleTCPClient(int cIntSocket) {
 		}
 		else{
 			/*Echo message back to client*/
+			printf("%s\n",echoBuffer);
 			if (send(cIntSocket, echoBuffer, recvMsgSize, 0) != recvMsgSize)
 				DieWithError("send() failed");
 				

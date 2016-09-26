@@ -52,7 +52,7 @@ int main(int argc, char *argv[]){
 	cIntLen = sizeof(echoCIntAddr);
 
 	for(;;){ /*wait for new connection from client*/
-		printf("Wait for new connect...\n");
+		printf("Wait for new connect at %hd...\n",ntohs(echoServAddr.sin_port));
 		/*Wait for a client to connect*/
 		if((cIntSock = accept(servSock, (struct sockaddr *) &echoCIntAddr, &cIntLen)) < 0)
 			DieWithError("accept() failed");
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]){
 		
 		//printf("Handling client %s\n", inet_ntoa(echoCIntAddr.sin_addr));
 		printf("Client ip address : %s\n", inet_ntoa(echoCIntAddr.sin_addr));
-
+		printf("Client port : %d\n", (int)(ntohs(echoCIntAddr.sin_port)));
 		
 		HandleTCPClient(cIntSock);
 	}
