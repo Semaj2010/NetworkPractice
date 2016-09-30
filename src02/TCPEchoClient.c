@@ -42,6 +42,13 @@ int main(int argc, char *argv[]){
 	if(connect(sock, (struct sockaddr *)&echoServAddr, sizeof(echoServAddr)) < 0)
 		DieWithError("connect failed");
 	printf("Server IP : %s Port:%hd\n",inet_ntoa(echoServAddr.sin_addr),ntohs(echoServAddr.sin_port));
+
+	/*its for 3-way handshake*/
+	if(send(sock, "hello", 5, 0) != 5)
+		DieWithError("send() sent a different number of bytes than expected");
+	if(recv(sock,echoString,RCVBUFSIZE,0)<0)
+		DieWithError("recv() failed");
+	printf("%s\n",echoString);
 	/*communicate with a server*/
 	for(;;){
 		scanf("%s", echoString);

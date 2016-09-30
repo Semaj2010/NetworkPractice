@@ -13,8 +13,17 @@ void HandleTCPClient(int cIntSocket) {
 	FILE *fpForLog;
 	char *fileName = "echo_history.log";
 	char *refuseMessage = "Say hello!\n";
-	int connectAllowFlag = 0;
+	//int connectAllowFlag = 0;
 
+	if(recv(cIntSocket, echoBuffer, 32, 0) < 0)
+		DieWithError("connect failed");
+	if(strncmp(echoBuffer,"hello",5)==0){
+		printf("%s\n",echoBuffer);
+		if(send(cIntSocket, "hi", 2, 0) != 2)
+			DieWithError("connect failed");}
+	else{
+		DieWithError("connect failed\n");
+	}
 	do{ 
 		/* Receive message from client*/
 		if ((recvMsgSize = recv(cIntSocket, echoBuffer, RCVBUFSIZE, 0)) < 0)
@@ -22,7 +31,6 @@ void HandleTCPClient(int cIntSocket) {
 		/* Send received string and receive again until end of transmission*/
 
 		echoBuffer[recvMsgSize] = '\0';
-
 		printf("msg<-%s\n",echoBuffer);    //print also to Serverside
 		printf("msg->");
 
@@ -31,23 +39,11 @@ void HandleTCPClient(int cIntSocket) {
 		fprintf(fpForLog, "%s\n", echoBuffer);
 		fclose(fpForLog);
 		
-		if(connectAllowFlag == 0){
-			/*string compare for allow to connect. need hello*/	
-			if(strncmp(echoBuffer, "hello",5)==0){
-				printf("Hi!\n");
-				if(send(cIntSocket,"Hi!",4,0) <0)
-					DieWithError("send() failed");
-				connectAllowFlag = 1;	
-			}else{
-				write(cIntSocket, refuseMessage, strlen(refuseMessage));
-			}
-		}
-		else{
 			/*Echo message back to client*/
-			printf("%s\n",echoBuffer);
-			if (send(cIntSocket, echoBuffer, recvMsgSize, 0) != recvMsgSize)
-				DieWithError("send() failed");
+		printf("%s\n",echoBuffer);
+		if (send(cIntSocket, echoBuffer, recvMsgSize, 0) != recvMsgSize)
+			DieWithError("send() failed");
 				
-		}
+		//}
 	}while(recvMsgSize>0);/* zero indicates end of transmission*/
 }
