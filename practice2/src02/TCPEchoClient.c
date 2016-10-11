@@ -56,7 +56,7 @@ int main(int argc, char *argv[]){
 	} else if(pid > 0){ 
 		do_keyboard(sock, pid);
 	} else if(pid == 0){
-			do_socket(sock);
+		do_socket(sock);
 	}
 
 	

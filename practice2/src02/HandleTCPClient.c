@@ -75,7 +75,8 @@ void HandleTCPClient(int cIntSocket) {
 	if(strncmp(echoBuffer,"hello",5)==0){
 		printf("%s\n",echoBuffer);
 		if(send(cIntSocket, "hi", 2, 0) != 2)
-			DieWithError("connect failed");}
+			DieWithError("connect failed");
+	}
 	else{
 		DieWithError("connect failed\n");
 	}
