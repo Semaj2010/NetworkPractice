@@ -1,14 +1,13 @@
-합계 168
+합계 152
 -rw-rw-r-- 1 semaj semaj   116 11월  2 10:21 DieWithError.c
 -rw-rw-r-- 1 semaj semaj  3424 11월  7 02:52 DieWithError.o
--rwxrwxr-x 1 semaj semaj 26768 11월  7 02:52 FTPClient
--rw-rw-r-- 1 semaj semaj  9697 11월  7 02:42 FTPClient.c
+-rwxrwxr-x 1 semaj semaj 27000 11월  7 16:48 FTPClient
+-rw-rw-r-- 1 semaj semaj  9929 11월  7 16:47 FTPClient.c
 -rw-rw-r-- 1 semaj semaj  3214 11월  7 02:42 FTPClient.h
--rw-rw-r-- 1 semaj semaj 28960 11월  7 02:52 FTPClient.o
--rwxrwxr-x 1 semaj semaj 25280 11월  7 02:52 FTPServer
--rw-rw-r-- 1 semaj semaj  6965 11월  7 02:36 FTPServer.c
--rw-rw-r-- 1 semaj semaj 23192 11월  7 02:52 FTPServer.o
+-rw-rw-r-- 1 semaj semaj 29640 11월  7 16:48 FTPClient.o
+-rwxrwxr-x 1 semaj semaj 25392 11월  7 16:48 FTPServer
+-rw-rw-r-- 1 semaj semaj  7328 11월  7 16:47 FTPServer.c
+-rw-rw-r-- 1 semaj semaj 23872 11월  7 16:48 FTPServer.o
 -rw-rw-r-- 1 semaj semaj   392 11월  7 02:52 Makefile
 -rw-rw-r-- 1 semaj semaj   308 11월  4 20:31 ftCommand.h
--rw-rw-r-- 1 semaj semaj     0 11월  7 02:53 tmp.txt
--rw-rw-r-- 1 semaj semaj 13105 10월 13 09:03 비사토과제.docx
+-rw-rw-r-- 1 semaj semaj     0 11월  7 16:48 tmp.txt

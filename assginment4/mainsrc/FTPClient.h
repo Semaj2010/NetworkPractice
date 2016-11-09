@@ -6,34 +6,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <fcntl.h>
-
-#define  EchoReq 	"EchoReq|" 
-#define  FileUpReq	"FileUpReq|" 
-#define  EchoRep 	"EchoRep|" 
-#define  FileAck 	"FileAck|" 
-#define  Delimeter	'|'
-#define  Quit       "quit|"
-
-#define CMD_OPEN "open"
-#define CMD_RLIST "rls"
-#define CMD_LIST "ls"
-#define CMD_GET "get"
-#define CMD_PUT "put"
-#define CMD_PWD "pwd"
-#define CMD_CD "cd"
-#define CMD_RCD "rcd"
-#define CMD_QUIT "quit"
-#define CMD_BYE "bye"
-#define CMD_HASH "hash"
-#define CMD_SHELL "!"
-
-#define MODE_DEBUG 1
-#define MODE_NORMAL 0
-
-#define FTP_PORT 21
-
-#define RCVBUFSIZE 1000
-#define BUFSIZE   1000
+#include "ftCommand.h"
 
 void DieWithError(char *errorMessage);
 void recvProtocol(int, char *, int);

@@ -17,7 +17,8 @@ void rlist(char *rlistCmd);
 void list(char *list);
 void get(char *getCmd);
 void put(char *putCmd);
-void rcd(char *cdCmd);
+void rcd(char *rcdCmd);
+void cd(char *cdCmd);
 void hash(char *hasCmd);
 void quit(char *quitCmd);
 
@@ -39,6 +40,7 @@ FtpCmdHandler ftpCmdHandler[] = {
     { CMD_PUT, put},
     { CMD_GET, get},
     { CMD_RCD, rcd},
+    { CMD_CD, cd},
     { CMD_HASH, hash}, 
     { CMD_QUIT, quit},
 };
@@ -156,7 +158,7 @@ void openCon(char* openCmd){
     recvProtocol(sock, recvBuffer, BUFSIZE - 1);
 
     // get server os information
-    sprintf(sendBuffer, "SYST%s", END_OF_PROTOCOL);
+    sprintf(sendBuffer, "%s%s",PRTCL_SYST, END_OF_PROTOCOL);
     sendProtocol(sock, sendBuffer);
     recvProtocol(sock, recvBuffer, BUFSIZE - 1);
     printMessage(recvBuffer);
@@ -169,7 +171,7 @@ void passiveMode(char* ip, int* port){
     int host0, host1, host2, host3;
     int port0, port1;
 
-    sprintf(sendBuffer, "PASV%s", END_OF_PROTOCOL);
+    sprintf(sendBuffer, "%s%s", PRTCL_PASSIVE,END_OF_PROTOCOL);
     // server에 PASV라는 메시지 보냄
     sendProtocol(sock, sendBuffer);
     // 서버로부터 데이터 수신
@@ -207,7 +209,7 @@ void rlist(char *rlistCmd){
     dtpSock = connectServer(ip, ntohs(port));
 
     // send LIST command to PI server
-    sprintf(sendBuffer , "LIST%s", END_OF_PROTOCOL);
+    sprintf(sendBuffer , "%s%s",PRTCL_LIST, END_OF_PROTOCOL);
     sendProtocol(sock, sendBuffer);
     recvProtocol(sock, recvBuffer, BUFSIZE);
     printMessage(recvBuffer);
@@ -247,7 +249,7 @@ void get (char *getCmd) {
     dtpSock = connectServer(ip, ntohs(port));
 
     //request server for trasnfer start - RETR fileName
-    sprintf(sendBuffer, "RETR %s%s" , fileName, END_OF_PROTOCOL);
+    sprintf(sendBuffer, "%s %s%s" ,PRTCL_RETR, fileName, END_OF_PROTOCOL);
     sendProtocol(sock, sendBuffer);
     recvProtocol(sock, recvBuffer, BUFSIZE);    // 응답으로 파일 사이즈 받음
     printMessage(recvBuffer);
@@ -290,7 +292,7 @@ void put(char *putCmd)
     dtpSock = connectServer(ip, ntohs(port));
 
     //request server for transfer start - STOR fileName
-    sprintf(sendBuffer, "STOR %s%s", fileName, END_OF_PROTOCOL);
+    sprintf(sendBuffer, "%s %s%s",PRTCL_STOR, fileName, END_OF_PROTOCOL);
     sendProtocol(sock, sendBuffer);
     recvProtocol(sock, recvBuffer, BUFSIZE);
     printMessage(recvBuffer);
@@ -317,12 +319,18 @@ void rcd(char *rcdCmd)
     sscanf(rcdCmd, "%*s %s%*c", recvBuffer);
     debug(recvBuffer);
 
-    sprintf(sendBuffer, "CWD %s%s", recvBuffer, END_OF_PROTOCOL);
+    sprintf(sendBuffer, "%s %s%s",PRTCL_CWD, recvBuffer, END_OF_PROTOCOL);
     sendProtocol(sock, sendBuffer);
     recvProtocol(sock, recvBuffer, BUFSIZE);
     printMessage(recvBuffer);
 }
 
+void cd(char *cdCmd)
+{
+    char tempBuffer[80];
+    chdir(tempBuffer);
+    system("pwd");
+}
 // ftp client exit
 void quit(char *quitCmd)
 {
@@ -330,7 +338,7 @@ void quit(char *quitCmd)
     char recvBuffer[BUFSIZE];
     debug("quit");
 
-    sprintf(sendBuffer, "QUIT%s", END_OF_PROTOCOL);
+    sprintf(sendBuffer, "%s%s",PRTCL_QUIT ,END_OF_PROTOCOL);
     sendProtocol(sock, sendBuffer);
     recvProtocol(sock, recvBuffer, BUFSIZE);
     printMessage(recvBuffer);
@@ -339,7 +347,7 @@ void quit(char *quitCmd)
     exit(0);
 }
 
-//same quit
+//same as quit
 void bye(char *byeCmd)
 {
     quit(0);
@@ -390,7 +398,7 @@ int main(int argc, char *argv[])
         ip = argv[0];
         port = argv[1];
     }
-
+    printf("사용법\nftp>open [IP] [PORT]\nftp>put test.txt\nftp>get test.txt\nftp>rls\nftp>rcd path/to/somewhere\n");
     startFtpClient(ip,port);
     return 0;
 }

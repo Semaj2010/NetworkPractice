@@ -211,6 +211,15 @@ int commandHandle(int clntSock, char *recvBuffer)
         sendProtocol(clntSock,sendBuffer);
         close(clntDtpSock);
     }
+    else if(!strncmp(recvBuffer, "CWD", 3))
+    {
+        char tempBuffer[80];
+        sscanf(recvBuffer, "%*s %s%*c",tempBuffer);
+        chdir(tempBuffer);
+        system("pwd");
+        sprintf(sendBuffer,"Change working directory..%s",END_OF_PROTOCOL);
+        sendProtocol(clntSock,sendBuffer);
+    }
     else if(!strncmp(recvBuffer,"QUIT",4))
     {
         printf("Quit\n");
