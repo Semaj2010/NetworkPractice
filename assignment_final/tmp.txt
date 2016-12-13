@@ -1,0 +1,4 @@
+합계 44
+-rw-rw-r-- 1 semaj semaj 38572 11월 10 15:37 assignment4_201211353_서동현.tar.gz
+drwxr-xr-x 2 semaj semaj  4096 12월 13 16:01 mainsrc
+-rw-rw-r-- 1 semaj semaj     0 12월 13 16:02 tmp.txt

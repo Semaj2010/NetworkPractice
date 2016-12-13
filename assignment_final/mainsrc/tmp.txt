@@ -1,0 +1,15 @@
+합계 196
+-rw-rw-r-- 1 semaj semaj   116 11월  2 10:21 DieWithError.c
+-rw-rw-r-- 1 semaj semaj  3424 11월  7 02:52 DieWithError.o
+-rwxrwxr-x 1 semaj semaj 27328 12월 13 16:26 FTPClient
+-rw-rw-r-- 1 semaj semaj 11367 12월 13 16:26 FTPClient.c
+-rw-rw-r-- 1 semaj semaj  2700 12월 13 16:24 FTPClient.h
+-rw-rw-r-- 1 semaj semaj 31704 12월 13 16:26 FTPClient.o
+-rwxrwxr-x 1 semaj semaj 25624 12월 13 16:26 FTPServer
+-rw-rw-r-- 1 semaj semaj  7839 12월 13 16:26 FTPServer.c
+-rw-rw-r-- 1 semaj semaj 24544 12월 13 16:26 FTPServer.o
+-rw-rw-r-- 1 semaj semaj   416 12월 13 15:31 Makefile
+-rw-rw-r-- 1 semaj semaj 39000 12월 13 16:09 assignment4_201211353_서동현.tar.gz
+-rw-rw-r-- 1 semaj semaj   613 12월 13 15:31 ftCommand.h
+-rw-rw-r-- 1 semaj semaj     0 12월 13 16:27 tmp.txt
+-rw-rw-r-- 1 semaj semaj   260 11월  9 16:25 프로토콜설명.txt
